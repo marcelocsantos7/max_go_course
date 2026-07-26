@@ -1,11 +1,8 @@
 package main
 
 import (
-	"errors"
+	"bank/fileops"
 	"fmt"
-	"os"
-	"path/filepath"
-	"strconv"
 )
 
 const accountBalanceFile = "balance.txt"
@@ -31,37 +28,8 @@ func Deposit(value float64, accountBallance float64) float64 {
 	return newBallance
 }
 
-func writeBalanceToFile(balance float64) error {
-	balanceText := fmt.Sprint(balance)
-
-	// Write the balance to a file in the current working directory
-	filePath := filepath.Join(".", "balance.txt")
-
-	// Write file (0644 gives read/write permissions to owner, read to others)
-	err := os.WriteFile(filePath, []byte(balanceText), 0644)
-	if err != nil {
-		return fmt.Errorf("failed to write balance to file: %w", err)
-	}
-
-	return nil
-}
-
-func getBalanceFromFile() (float64, error) {
-	data, err := os.ReadFile("balance.txt")
-	if err != nil {
-		return 0, errors.New("Failed to read balance file")
-	}
-
-	balanceText := string(data)
-	balance, err := strconv.ParseFloat(balanceText, 64)
-	if err != nil {
-		return 0, errors.New("Failed to parse file value")
-	}
-	return balance, nil
-}
-
 func main() {
-	accountBallance, err := getBalanceFromFile()
+	accountBallance, err := fileops.GetFloatFromFile(accountBalanceFile)
 
 	if err != nil {
 		fmt.Println("------------")
@@ -72,12 +40,7 @@ func main() {
 
 	fmt.Println("Welcome to Go Bank!")
 	for {
-		fmt.Println("\nWhat do you want to do?")
-		fmt.Println("1. Check balance")
-		fmt.Println("2. Deposit")
-		fmt.Println("3. Withdraw")
-		fmt.Printf("4. Exit\n\n")
-
+		presentOptions()
 		var choice int
 		fmt.Print("Your choice: ")
 		fmt.Scan(&choice)
@@ -95,7 +58,7 @@ func main() {
 				continue
 			}
 			accountBallance = Deposit(deposit, accountBallance)
-			if err := writeBalanceToFile(accountBallance); err != nil {
+			if err := fileops.WriteFloatToFile(accountBallance, accountBalanceFile); err != nil {
 				fmt.Println(err)
 			}
 
@@ -104,7 +67,7 @@ func main() {
 			var withdraw float64
 			fmt.Scan(&withdraw)
 			accountBallance = Withdraw(withdraw, accountBallance)
-			if err := writeBalanceToFile(accountBallance); err != nil {
+			if err := fileops.WriteFloatToFile(accountBallance, accountBalanceFile); err != nil {
 				fmt.Println(err)
 			}
 
