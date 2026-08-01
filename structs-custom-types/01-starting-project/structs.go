@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-type User struct {
+type user struct {
 	firstName string
 	lastName string
 	birthdate string
@@ -13,18 +13,30 @@ type User struct {
 	createdAt time.Time
 }
 
-func main() {
-	user := User {
+func (u *user) outputUserDetails() {
+	fmt.Println(u.firstName, u.lastName, u.birthdate, u.createdAt)
+}
+
+func (u *user) clearUserName() {
+	u.firstName = ""
+	u.lastName = ""
+}
+
+func newUser() *user {
+	return &user {
 		firstName: getUserData("Please enter your first name: "),
 		lastName: getUserData("Please enter your last name: "),
 		birthdate: getUserData("Please enter your birthdate (MM/DD/YYYY): "),
 		createdAt: time.Now(),
 	}
-	outputUserDetails(user)
 }
 
-func outputUserDetails(userDetails User) {
-	fmt.Println(userDetails.firstName, userDetails.lastName, userDetails.birthdate, userDetails.createdAt)
+func main() {
+	user := newUser()
+
+	user.outputUserDetails()
+	user.clearUserName()			
+	user.outputUserDetails()
 }
 
 func getUserData(promptText string) string {
