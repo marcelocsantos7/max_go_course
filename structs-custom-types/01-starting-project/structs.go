@@ -7,9 +7,9 @@ import (
 
 type user struct {
 	firstName string
-	lastName string
+	lastName  string
 	birthdate string
-	age int
+	age       int
 	createdAt time.Time
 }
 
@@ -23,9 +23,9 @@ func (u *user) clearUserName() {
 }
 
 func newUser() *user {
-	return &user {
+	return &user{
 		firstName: getUserData("Please enter your first name: "),
-		lastName: getUserData("Please enter your last name: "),
+		lastName:  getUserData("Please enter your last name: "),
 		birthdate: getUserData("Please enter your birthdate (MM/DD/YYYY): "),
 		createdAt: time.Now(),
 	}
@@ -35,7 +35,7 @@ func main() {
 	user := newUser()
 
 	user.outputUserDetails()
-	user.clearUserName()			
+	user.clearUserName()
 	user.outputUserDetails()
 }
 
