@@ -21,7 +21,7 @@ func main() {
 	appUser.OutputUserDetails()
 
 	appAdmin := user.NewAdmin("email@email.com", "23456")
-	appAdmin.User.OutputUserDetails()
+	appAdmin.OutputUserDetails()
 
 	fmt.Println("######################")
 
