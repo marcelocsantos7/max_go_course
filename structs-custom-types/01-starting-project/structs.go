@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+
 	"example.com/structs/user"
 )
 
@@ -16,13 +17,13 @@ func main() {
 		fmt.Println(err)
 		return
 	}
-	
+
 	appUser.OutputUserDetails()
-	
+
 	appAdmin := user.NewAdmin("email@email.com", "23456")
 	appAdmin.User.OutputUserDetails()
+
 	fmt.Println("######################")
-	appAdmin.OutputAdminDetails()
 
 	// user.ClearUserName()
 	// user.OutputUserDetails()

@@ -1,9 +1,9 @@
 package user
 
 import (
+	"errors"
 	"fmt"
 	"time"
-	"errors"
 )
 
 type User struct {
@@ -14,9 +14,9 @@ type User struct {
 }
 
 type Admin struct {
-	email string
+	email    string
 	password string
-	User User
+	User     User
 }
 
 func (u *User) OutputUserDetails() {
@@ -30,19 +30,15 @@ func (u *User) ClearUserName() {
 
 func NewAdmin(email, password string) Admin {
 	return Admin{
-		email: email,
+		email:    email,
 		password: password,
 		User: User{
 			firstName: "Admin",
-			lastName: "Me",
+			lastName:  "Me",
 			birthdate: "___",
 			createdAt: time.Now(),
 		},
 	}
-}
-
-func (a *Admin) OutputAdminDetails() {
-	fmt.Println(a.User.firstName, a.User.lastName, a.User.birthdate, a.User.createdAt)
 }
 
 func New(firstName, lastName, birthdate string) (*User, error) {
@@ -52,7 +48,7 @@ func New(firstName, lastName, birthdate string) (*User, error) {
 
 	return &User{
 		firstName: firstName,
-		lastName: lastName,
+		lastName:  lastName,
 		birthdate: birthdate,
 		createdAt: time.Now(),
 	}, nil
