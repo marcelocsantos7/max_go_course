@@ -13,6 +13,9 @@ func main() {
 
 	appUser, err := user.New(userFirstName, userLastName, userBirthdate)
 
+	var name str = "Admin"
+	name.log()
+
 	if err != nil {
 		fmt.Println(err)
 		return
