@@ -14,6 +14,19 @@ type saver interface {
 	Save() error
 }
 
+// type displayer interface {
+// 	Display()
+// }
+
+type outputable interface {
+	saver
+	Display() 
+}
+
+func printSomething(value interface{}){
+	fmt.Println(value)
+}
+
 func saveData(data saver) error {
 	err := data.Save()
 	if err != nil {
@@ -22,6 +35,11 @@ func saveData(data saver) error {
 	}
 	fmt.Println("Saving succeeded")
 	return nil
+}
+
+func outputData(data outputable) {
+	data.Display()
+	saveData(data)
 }
 
 func getNoteData() (string, string) {
@@ -40,8 +58,7 @@ func main() {
 		fmt.Println(err)
 		return
 	}
-	todo.Print()
-	saveData(todo)
+	outputData(todo)
 
 	userNote, err := note.New(title, content)
 	if err != nil {
@@ -49,8 +66,7 @@ func main() {
 		return
 	}
 
-	userNote.Print()
-	saveData(userNote)
+	outputData(userNote)
 }
 
 func getUserInput(prompt string) string {
@@ -59,7 +75,7 @@ func getUserInput(prompt string) string {
 	text, err := reader.ReadString('\n')
 	if err != nil {
 		return ""
-	}
+	}	
 
 	text = strings.TrimSuffix(text, "\n")
 	text = strings.TrimSuffix(text, "\r")

@@ -20,7 +20,7 @@ func New(text string) (Todo, error) {
 	}, nil
 }
 
-func (todo Todo) Print() {
+func (todo Todo) Display() {
 	fmt.Println(todo.Text)
 }
 
