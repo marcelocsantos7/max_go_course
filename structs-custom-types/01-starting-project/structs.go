@@ -33,4 +33,4 @@ func getUserData(promptText string) string {
 	var value string
 	fmt.Scanln(&value)
 	return value
-}
+}     
