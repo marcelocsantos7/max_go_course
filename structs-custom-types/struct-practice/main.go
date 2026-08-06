@@ -24,7 +24,29 @@ type outputable interface {
 }
 
 func printSomething(value interface{}){
-	fmt.Println(value)
+	typedVal, ok := value.(int)
+	if ok {
+		fmt.Println("Integer:", typedVal)
+	}
+
+	typedFloat, ok := value.(float64)
+	if ok {
+		fmt.Println("Integer:", typedFloat)
+	}
+
+	typedString, ok := value.(string)
+	if ok {
+		fmt.Println("Integer:", typedString)
+	}
+
+	// switch value.(type) {
+	// case int:
+	// 	fmt.Println("Integer:", value)
+	// case float64:
+	// 	fmt.Println("Float:", value)
+	// case string:
+	// 	fmt.Println(value)
+	// }
 }
 
 func saveData(data saver) error {
@@ -59,6 +81,7 @@ func main() {
 		return
 	}
 	outputData(todo)
+	printSomething(todo)
 
 	userNote, err := note.New(title, content)
 	if err != nil {
