@@ -71,7 +71,20 @@ func getNoteData() (string, string) {
 	return title, content
 }
 
+func add[T int | float64 | string](a , b T) T {
+	// aInt, aIsInt := a.(int)
+	// bInt, bIsInt := b.(int)
+
+	// if aIsInt && bIsInt {
+	// 	return aInt + bInt
+	// }
+	return a + b 
+}
+
 func main() {
+	result := add(1, 5)
+	fmt.Println(result)
+
 	title, content := getNoteData()
 	todoText := getUserInput("Todo text: ")
 
