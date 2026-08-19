@@ -1,21 +1,14 @@
 package main
 
 import (
-	"fmt"
+	"example.com/practice-project/prices"
 )
 
 func main() {
-	prices := []float64{10, 20, 30}
 	taxes := []float64{0, 0.07, 0.1, 0.15}
 
-	result := make(map[float64][]float64)
-
 	for _, tax := range taxes {
-		taxedPrices := make([]float64, len(prices))
-		for idx, price := range prices {
-			taxedPrices[idx] = price * (1 + tax)
-		}
-		result[tax] = taxedPrices
+		priceJob := prices.NewTaxIncludedPriceJob(tax)
+		priceJob.Process()
 	}
-	fmt.Println(result)
 }
